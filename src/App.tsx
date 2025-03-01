@@ -22,7 +22,6 @@ function App() {
   useEffect(() => {
     async function get() {
       const requestResult = await getAnswer("хочу купити смартфон Samsung"); // тут також замість цього "рядка" вставляєш значення з input
-      console.log(requestResult);
       setValue(requestResult);
     }
     get();
@@ -66,6 +65,7 @@ function App() {
     }
   }, [value]);
 
+  //результат
   console.log(result);
 
   return <div>App</div>;
