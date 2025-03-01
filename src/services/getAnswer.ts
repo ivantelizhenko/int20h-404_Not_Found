@@ -22,10 +22,8 @@ export async function getAnswer(query: string) {
     });
 
     if (!completion) throw new Error("Some problem with get data");
-
     return completion.choices[0].message.content;
   } catch (err) {
     console.error(err);
   }
 }
-getAnswer("2+2");
