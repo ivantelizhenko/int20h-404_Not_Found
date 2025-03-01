@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import SendIcon from '../../public/icons/send.svg'
+import React, { useState } from 'react';
+import SendIcon from '../../img/icons/send.svg'
 import Message from '../Message/Message';
 // import List from '../List/List';
 // import Loader from '../Loader/Loader';
