@@ -2,6 +2,8 @@ import "./services/getAnswer";
 import * as all from "../public/demoData";
 import { getAnswer } from "./services/getAnswer";
 import { useEffect, useState } from "react";
+import Header from "./components/Header/Header";
+import Input from "./components/Input/Input";
 
 type Item = {
   type: string;
@@ -68,7 +70,12 @@ function App() {
   //результат
   console.log(result);
 
-  return <div>App</div>;
+  return (
+    <div className="flex flex-col items-center justify-between h-full gap-[100px]">
+      <Header />
+      <Input />
+    </div>
+  );
 }
 
 export default App;
