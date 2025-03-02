@@ -24,10 +24,6 @@ function App() {
 
   // Отримую дані про запит
   useEffect(() => {
-    if (input.trim() === '') {
-      setResult(allItems);
-      return;
-    }
     async function get() {
       const requestResult = await getAnswer(input); 
       setValue(requestResult);
@@ -88,12 +84,13 @@ function App() {
   return (
     <div className="flex flex-col items-center justify-between h-full gap-[50px] pb-[60px]">
       <Header />
-      <Input onSearch={handleSearch} input={input} setInput={setInput}/>
+      <h1 className='font-semibold xl:text-[28px] sm:text-[16px] md:text-[18px] text-center'>I'm your shopping assistant! What can I find for you?</h1>
       {input.length > 0 && result.length > 0 ? (
         <List items={result} />
       ) : input.length > 0 ? (
         <p>Sorry, product(s) not found</p>
       ) : null}
+      <Input onSearch={handleSearch} input={input} setInput={setInput}/>
     </div>
   );
 }
