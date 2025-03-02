@@ -4,8 +4,9 @@ import { getAnswer } from "./services/getAnswer";
 import { useEffect, useState } from "react";
 import Header from "./components/Header/Header";
 import Input from "./components/Input/Input";
+import List from "./components/List/List";
 
-type Item = {
+export type Item = {
   type: string;
   madeCompany: string;
   model: string;
@@ -19,15 +20,29 @@ function App() {
   const allItems: Item[] = Object.values(all).flat();
   const [result, setResult] = useState<Item[]>(allItems);
   const [value, setValue] = useState<Item | null>(null);
+  const [input, setInput] = useState<string>('');
 
   // Отримую дані про запит
   useEffect(() => {
+    if (input.trim() === '') {
+      setResult(allItems);
+      return;
+    }
     async function get() {
-      const requestResult = await getAnswer("хочу купити смартфон Samsung"); // тут також замість цього "рядка" вставляєш значення з input
+      const requestResult = await getAnswer(input); 
       setValue(requestResult);
     }
     get();
-  }, []); // тут додай те, що тобі потрібно в dependency array
+  }, [input]); 
+
+  const handleSearch = async () => {
+    const requestResult = await getAnswer(input);
+    if (requestResult) {
+      setResult(requestResult);
+    } else {
+      setResult([]);
+    }
+  };
 
   useEffect(() => {
     if (value && value.madeCompany !== null) {
@@ -71,9 +86,14 @@ function App() {
   console.log(result);
 
   return (
-    <div className="flex flex-col items-center justify-between h-full gap-[100px]">
+    <div className="flex flex-col items-center justify-between h-full gap-[50px] pb-[60px]">
       <Header />
-      <Input />
+      <Input onSearch={handleSearch} input={input} setInput={setInput}/>
+      {input.length > 0 && result.length > 0 ? (
+        <List items={result} />
+      ) : input.length > 0 ? (
+        <p>Sorry, product(s) not found</p>
+      ) : null}
     </div>
   );
 }
